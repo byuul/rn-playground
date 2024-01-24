@@ -5,14 +5,19 @@
  * @format
  */
 
-import React from "react";
-import {SafeAreaView, useColorScheme, View} from "react-native";
+import React, {useState} from "react";
+import {Button, SafeAreaView, useColorScheme, View} from "react-native";
 
 import {Colors} from "react-native/Libraries/NewAppScreen";
 import Box from "./components/Box";
 
 function App(): React.JSX.Element {
+  const [visible, setVisible] = useState(true);
   const isDarkMode = useColorScheme() === "dark";
+
+  const onPress = () => {
+    setVisible(!visible);
+  };
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -20,7 +25,8 @@ function App(): React.JSX.Element {
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <Box rounded size="large" color="blue" />
+      <Button title="toggle" onPress={onPress} />
+      {visible && <Box rounded size="large" color="blue" />}
     </SafeAreaView>
   );
 }
