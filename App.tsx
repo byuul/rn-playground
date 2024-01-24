@@ -6,29 +6,27 @@
  */
 
 import React, {useState} from "react";
-import {Button, SafeAreaView, useColorScheme, View} from "react-native";
-
-import {Colors} from "react-native/Libraries/NewAppScreen";
-import Box from "./components/Box";
+import {SafeAreaView, StyleSheet} from "react-native";
+import Counter from "./components/Counter";
 
 function App(): React.JSX.Element {
-  const [visible, setVisible] = useState(true);
-  const isDarkMode = useColorScheme() === "dark";
+  const [count, setCount] = useState(0);
 
-  const onPress = () => {
-    setVisible(!visible);
-  };
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const onIncrease = () => setCount(count + 1);
+  const onDecrease = () => setCount(count - 1);
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <Button title="toggle" onPress={onPress} />
-      {visible && <Box rounded size="large" color="blue" />}
+    <SafeAreaView style={styles.full}>
+      <Counter count={count} onIncrease={onIncrease} onDecrease={onDecrease} />
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  full: {
+    flex: 1,
+    backgroundColor: "cyan",
+  },
+});
 
 export default App;
