@@ -5,27 +5,30 @@
  * @format
  */
 
-import React, {useState} from "react";
-import {SafeAreaView, StyleSheet} from "react-native";
-import Counter from "./components/Counter";
+import React from "react";
+import {StyleSheet} from "react-native";
+import {SafeAreaProvider, SafeAreaView} from "react-native-safe-area-context";
+import DateHead from "./components/DateHead";
+import AnddTodo from "./components/AddTodo";
+import Empty from "./components/Empty";
 
 function App(): React.JSX.Element {
-  const [count, setCount] = useState(0);
-
-  const onIncrease = () => setCount(count + 1);
-  const onDecrease = () => setCount(count - 1);
+  const today = new Date();
 
   return (
-    <SafeAreaView style={styles.full}>
-      <Counter count={count} onIncrease={onIncrease} onDecrease={onDecrease} />
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView edges={["bottom"]} style={styles.block}>
+        <DateHead date={today} />
+        <Empty />
+        <AnddTodo />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  full: {
+  block: {
     flex: 1,
-    backgroundColor: "cyan",
   },
 });
 
